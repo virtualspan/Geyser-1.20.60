@@ -54,21 +54,6 @@ jobs:
           arguments: build
           gradle-home-cache-cleanup: true
           
-      - name: Archive artifacts (Geyser Fabric)
-        # See https://github.com/actions/upload-artifact/commits
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
-        if: success()
-        with:
-          name: Geyser Fabric
-          path: bootstrap/mod/fabric/build/libs/Geyser-Fabric.jar
-          if-no-files-found: error
-      - name: Archive artifacts (Geyser NeoForge)
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3
-        if: success()
-        with:
-          name: Geyser NeoForge
-          path: bootstrap/mod/neoforge/build/libs/Geyser-NeoForge.jar
-          if-no-files-found: error
       - name: Archive artifacts (Geyser Standalone)
         uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3
         if: success()
@@ -123,8 +108,8 @@ jobs:
           appPrivateKey: ${{ secrets.RELEASE_APP_PK }}
           files: |
             bungeecord:bootstrap/bungeecord/build/libs/Geyser-BungeeCord.jar
-            fabric:bootstrap/mod/fabric/build/libs/Geyser-Fabric.jar
-            neoforge:bootstrap/mod/neoforge/build/libs/Geyser-NeoForge.jar
+//             fabric:bootstrap/mod/fabric/build/libs/Geyser-Fabric.jar
+//             neoforge:bootstrap/mod/neoforge/build/libs/Geyser-NeoForge.jar
             spigot:bootstrap/spigot/build/libs/Geyser-Spigot.jar
             standalone:bootstrap/standalone/build/libs/Geyser-Standalone.jar
             velocity:bootstrap/velocity/build/libs/Geyser-Velocity.jar
@@ -164,7 +149,7 @@ jobs:
           # Run the build script
           rsync -P -e "ssh -o StrictHostKeyChecking=no -i id_ecdsa" metadata.json $DOWNLOADS_USERNAME@$DOWNLOADS_SERVER_IP:~/uploads/$PROJECT/$GITHUB_RUN_NUMBER/
 
-      - name: Publish to Modrinth (Fabric)
+       - name: Publish to Modrinth (Fabric)
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
         if: ${{ success() && github.repository == 'GeyserMC/Geyser' && github.ref_name == 'master' }}
         env:

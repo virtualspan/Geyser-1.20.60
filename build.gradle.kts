@@ -20,11 +20,11 @@ val basePlatforms = setOf(
     projects.viaproxy
 ).map { it.dependencyProject }
 
-val moddedPlatforms = setOf(
-    projects.fabric,
-    projects.neoforge,
-    projects.mod
-).map { it.dependencyProject }
+// val moddedPlatforms = setOf(
+//     projects.fabric,
+//     projects.neoforge,
+//     projects.mod
+// ).map { it.dependencyProject }
 
 subprojects {
     apply {
@@ -35,7 +35,7 @@ subprojects {
 
     when (this) {
         in basePlatforms -> plugins.apply("geyser.platform-conventions")
-        in moddedPlatforms -> plugins.apply("geyser.modded-conventions")
+//         in moddedPlatforms -> plugins.apply("geyser.modded-conventions")
         else -> plugins.apply("geyser.base-conventions")
     }
 }
