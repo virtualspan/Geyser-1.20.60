@@ -108,8 +108,6 @@ jobs:
           appPrivateKey: ${{ secrets.RELEASE_APP_PK }}
           files: |
             bungeecord:bootstrap/bungeecord/build/libs/Geyser-BungeeCord.jar
-//             fabric:bootstrap/mod/fabric/build/libs/Geyser-Fabric.jar
-//             neoforge:bootstrap/mod/neoforge/build/libs/Geyser-NeoForge.jar
             spigot:bootstrap/spigot/build/libs/Geyser-Spigot.jar
             standalone:bootstrap/standalone/build/libs/Geyser-Standalone.jar
             velocity:bootstrap/velocity/build/libs/Geyser-Velocity.jar
@@ -149,7 +147,7 @@ jobs:
           # Run the build script
           rsync -P -e "ssh -o StrictHostKeyChecking=no -i id_ecdsa" metadata.json $DOWNLOADS_USERNAME@$DOWNLOADS_SERVER_IP:~/uploads/$PROJECT/$GITHUB_RUN_NUMBER/
 
-       - name: Publish to Modrinth (Fabric)
+      - name: Publish to Modrinth (Fabric)
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
         if: ${{ success() && github.repository == 'GeyserMC/Geyser' && github.ref_name == 'master' }}
         env:
